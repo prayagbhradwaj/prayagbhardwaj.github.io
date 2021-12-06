@@ -12,6 +12,27 @@
  <link href="assets/css/style.css" rel="stylesheet">
  
 </head>
+<script>
+              const arr = [];
+              var i = 0;
+              function add_new(event){
+                var template = event.accelerationIncludingGravity.x;
+               arr[i] = template;
+               i = i+1;              
+                }
+                 
+                function s(x){
+                 if(x>10){
+                  return;
+                 }
+
+                  window.addEventListener("devicemotion", handleMotion);
+                  return s(x+1);
+                }
+                var n= 0;
+            s(n);
+            document.getElementById("arrPrint").innerHTML = arr;
+</script>
 <style>
       #canvas-container {
    width: 100%;
@@ -33,47 +54,10 @@ canvas {
         <div class="hero-logo">
     <h1>Rectangle</h1>
             
-            <canvas id="canvas" width="500" height="500" ></canvas>
-            <script>
-              const arr = [];
-              var i = 0;
-              function add_new(event){
-                var template = event.accelerationIncludingGravity.x;
-               arr[i] = template;
-               i = i+1;              
-                }
-                 
-                function s(x){
-                 if(x>10){
-                  return;
-                 }
-
-                  window.addEventListener("devicemotion", handleMotion);
-                  return s(x+1);
-                }
-                var n= 0;
-            s(n);
-            document.getElementById("arrPrint").innerHTML = arr;
-            var canvas = document.getElementById("canvas");
-            var ctx = canvas.getContext("2d");
-            var l = 10;
-            var h = 10;
-            var start = setInterval(drawClock, 10);
-            function myStopFunction() {
-              clearInterval(start);
-            }
-            function drawClock() {
-            var ctx = document.getElementById('canvas').getContext('2d');  
-            ctx.fillStyle="white";
-            ctx.fillRect(0, 0, l,h);
-            l = l+1;
-            h = h+1;
-            ctx.stroke();
-            }
-            </script>
-            <div class="actions">
-              <a href="javascript:myStopFunction()" class="btn-get-started">Stop</a>
-             
+          <pre id="arrPrint"></pre>
+            
+            
+            
             </div>
             
         
@@ -85,7 +69,7 @@ canvas {
     
 
   </main>
-<pre id="arrPrint"></pre>
+
   <script src="assets/vendor/typed.js/typed.min.js"></script>
   <script src="assets/js/main.js"></script>
 
