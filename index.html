@@ -36,6 +36,9 @@ canvas {
             
             <canvas id="canvas" width="500" height="500" ></canvas>
             <script>
+              let acc_set = new Accelerometer({frequency: 120});
+              document.getElementById("test").innerHTML = acc_set.x;
+
             var canvas = document.getElementById("canvas");
             var ctx = canvas.getContext("2d");
             var l = 10;
@@ -64,7 +67,7 @@ canvas {
     </div>
   </section>
 
-    
+    <p id="test"></p>
 
   </main>
 
