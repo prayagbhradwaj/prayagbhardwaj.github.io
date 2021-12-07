@@ -40,7 +40,7 @@ canvas {
             var ctx = canvas.getContext("2d");
             var l = 10;
             var h = 50;
-            var start = setInterval(drawClock('Accelerometer_x', event.acceleration.x), 10);
+            var start = setInterval(drawClock(), 10);
             function myStopFunction() {
               clearInterval(start);
             }
@@ -48,21 +48,46 @@ canvas {
             var ctx = document.getElementById('canvas').getContext('2d');  
             ctx.fillStyle="white";
             var temp = 0;
-            if (value != null)
-              temp = value.toFixed(precision);
-              l = l + temp;
             ctx.fillRect(0, 0, l,h);
+            l = l+1;
+            h = h+1;
             ctx.stroke();
             }
+
+
+
+
+
+            </script>
+            <div class="actions">
+              <a href="javascript:myStopFunction()" class="btn-get-started">Stop</a>
+              <p style="margin-top:1rem;">Num. of datapoints: <span class="badge badge-warning" id="num-observed-events">0</span></p>
+
+
+<h4>Accelerometer</h4>
+<ul>
+  <li>X-axis: <span id="Accelerometer_x">0</span><span> m/s<sup>2</sup></span></li>
+  <li>Y-axis: <span id="Accelerometer_y">0</span><span> m/s<sup>2</sup></span></li>
+  <li>Z-axis: <span id="Accelerometer_z">0</span><span> m/s<sup>2</sup></span></li>
+  <li>Data Interval: <span id="Accelerometer_i">0</span><span> ms</span></li>
+</ul>
+</div>
+</main>
+<script>
+
+
+
 function incrementEventCount(){
   let counterElement = document.getElementById("num-observed-events")
   let eventCount = parseInt(counterElement.innerHTML)
   counterElement.innerHTML = eventCount + 1;
 }
+
 function updateFieldIfNotNull(fieldName, value, precision=10){
   if (value != null)
     document.getElementById(fieldName).innerHTML = value.toFixed(precision);
 }
+
 function handleMotion(event) {
   updateFieldIfNotNull('Accelerometer_x', event.acceleration.x);
   updateFieldIfNotNull('Accelerometer_y', event.acceleration.y);
@@ -73,22 +98,7 @@ function handleMotion(event) {
 }
 window.addEventListener("devicemotion", handleMotion);
 
-
-
-
-
-
-
-            </script>
-            <div class="actions">
-              <a href="javascript:myStopFunction()" class="btn-get-started">Stop</a>
-              <ul>
-                <li>X-axis: <span id="Accelerometer_x">0</span><span> m/s<sup>2</sup></span></li>
-                <li>Y-axis: <span id="Accelerometer_y">0</span><span> m/s<sup>2</sup></span></li>
-                <li>Z-axis: <span id="Accelerometer_z">0</span><span> m/s<sup>2</sup></span></li>
-                <li>Data Interval: <span id="Accelerometer_i">0</span><span> ms</span></li>
-              </ul>
-            </div>
+</script>
             
         
         </div>
