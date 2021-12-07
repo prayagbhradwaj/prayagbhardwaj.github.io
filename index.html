@@ -81,8 +81,9 @@ function updateFieldIfNotNull(fieldName, value, precision=10){
     document.getElementById(fieldName).innerHTML = value.toFixed(precision);
   var aaa = value.toFixed(precision);
   drawClock();
-  l = l+1;
-  h = h+1;
+  l = l+50;
+  h = h+50;
+  drawClock();
 }
 
 function handleMotion(event) {
