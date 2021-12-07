@@ -81,8 +81,8 @@ function updateFieldIfNotNull(fieldName, value, precision=10){
     document.getElementById(fieldName).innerHTML = value.toFixed(precision);
   var aaa = value.toFixed(precision);
   
-  l = l+(aaa*10000000000);
- drawClock();
+  l = l+(aaa);
+ 
 }
 
 function handleMotion(event) {
@@ -91,6 +91,7 @@ function handleMotion(event) {
   updateFieldIfNotNull('Accelerometer_z', event.acceleration.z);
 
   updateFieldIfNotNull('Accelerometer_i', event.interval, 2);
+  drawClock();
   incrementEventCount();
 }
 window.addEventListener("devicemotion", handleMotion);
