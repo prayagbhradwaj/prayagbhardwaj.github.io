@@ -21,7 +21,7 @@
 
 canvas {
    display: inline;
-   border: 1px solid black;
+   border: 1px solid black; 
    width: 100%;
     
 }
@@ -37,6 +37,7 @@ canvas {
       <li>X-axis: <span id="Accelerometer_x">0</span><span> m/s<sup>2</sup></span></li>
       <li>Y-axis: <span id="Accelerometer_y">0</span><span> m/s<sup>2</sup></span></li>
       <li>Z-axis: <span id="Accelerometer_z">0</span><span> m/s<sup>2</sup></span></li>
+      <li>New: <span id="abc">0</span><span> m/s<sup>2</sup></span></li>
       <li>Data Interval: <span id="Accelerometer_i">0</span><span> ms</span></li>
     </ul>
             <canvas id="canvas" width="500" height="500" ></canvas>
@@ -55,6 +56,38 @@ canvas {
             ctx.fillRect(0, 0, l,h);
             ctx.stroke();
             }
+            
+
+function incrementEventCount(){
+  let counterElement = document.getElementById("num-observed-events")
+  let eventCount = parseInt(counterElement.innerHTML)
+  counterElement.innerHTML = eventCount + 1;
+}
+
+function updateFieldIfNotNull(fieldName, value, precision=10){
+  if (value != null){
+    document.getElementById(fieldName).innerHTML = value.toFixed(precision);
+  } 
+}
+function up(fieldName, value, precision=10)
+{
+  if(value!=updateFieldIfNotNull)
+  document.getElementById(fieldName).innerHTML = value.toFixed(precision)+l;
+}
+
+function handleMotion(event) {
+  updateFieldIfNotNull('Accelerometer_x', event.acceleration.x);
+  updateFieldIfNotNull('Accelerometer_y', event.acceleration.y);
+  updateFieldIfNotNull('Accelerometer_z', event.acceleration.z);
+  up('abc', event.acceleration.x);
+
+  updateFieldIfNotNull('Accelerometer_i', event.interval, 2);
+  drawClock();
+  incrementEventCount();
+}
+window.addEventListener("devicemotion", handleMotion);
+
+
             </script>
             <div class="actions">
               <a href="javascript:myStopFunction()" class="btn-get-started">Stop</a>
@@ -66,37 +99,7 @@ canvas {
 
 </div>
 </main>
-<script>
 
-
-
-function incrementEventCount(){
-  let counterElement = document.getElementById("num-observed-events")
-  let eventCount = parseInt(counterElement.innerHTML)
-  counterElement.innerHTML = eventCount + 1;
-}
-
-function updateFieldIfNotNull(fieldName, value, precision=10){
-  if (value != null)
-    document.getElementById(fieldName).innerHTML = value.toFixed(precision);
-  var aaa = value.toFixed(precision);
-  
-  l = l+(aaa);
- 
-}
-
-function handleMotion(event) {
-  updateFieldIfNotNull('Accelerometer_x', event.acceleration.x);
-  updateFieldIfNotNull('Accelerometer_y', event.acceleration.y);
-  updateFieldIfNotNull('Accelerometer_z', event.acceleration.z);
-
-  updateFieldIfNotNull('Accelerometer_i', event.interval, 2);
-  drawClock();
-  incrementEventCount();
-}
-window.addEventListener("devicemotion", handleMotion);
-
-</script>
             
         
         </div>
