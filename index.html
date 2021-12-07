@@ -27,8 +27,7 @@ canvas {
 }
     </style>
 <body>
-    
-  <section id="hero">
+    <section id="hero">
     <div class="hero-container">
       <div data-aos="fade-in">
         <div class="hero-logo">
@@ -39,29 +38,25 @@ canvas {
             var canvas = document.getElementById("canvas");
             var ctx = canvas.getContext("2d");
             var l = 10;
-            var h = 50;
-            var start = setInterval(drawClock(), 10);
+            var h = 10;
+            var start = setInterval(drawClock, 10);
             function myStopFunction() {
               clearInterval(start);
             }
-            function drawClock(fieldName, value, precision=10) {
+            function drawClock() {
             var ctx = document.getElementById('canvas').getContext('2d');  
             ctx.fillStyle="white";
-            var temp = 0;
             ctx.fillRect(0, 0, l,h);
             l = l+1;
             h = h+1;
             ctx.stroke();
             }
-
-
-
-
-
             </script>
             <div class="actions">
               <a href="javascript:myStopFunction()" class="btn-get-started">Stop</a>
-              <p style="margin-top:1rem;">Num. of datapoints: <span class="badge badge-warning" id="num-observed-events">0</span></p>
+             
+  
+    <p style="margin-top:1rem;">Num. of datapoints: <span class="badge badge-warning" id="num-observed-events">0</span></p>
 
 
 <h4>Accelerometer</h4>
