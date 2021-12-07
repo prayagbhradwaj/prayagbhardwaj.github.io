@@ -81,7 +81,7 @@ function updateFieldIfNotNull(fieldName, value, precision=10){
     document.getElementById(fieldName).innerHTML = value.toFixed(precision);
   var aaa = value.toFixed(precision);
   
-  l = l+aaa;
+  l = l+(aaa*10000000000);
  drawClock();
 }
 
