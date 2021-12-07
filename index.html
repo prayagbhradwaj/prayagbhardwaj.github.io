@@ -32,7 +32,13 @@ canvas {
       <div data-aos="fade-in">
         <div class="hero-logo">
     <h1>Rectangle</h1>
-            
+    <h4>Accelerometer</h4>
+    <ul>
+      <li>X-axis: <span id="Accelerometer_x">0</span><span> m/s<sup>2</sup></span></li>
+      <li>Y-axis: <span id="Accelerometer_y">0</span><span> m/s<sup>2</sup></span></li>
+      <li>Z-axis: <span id="Accelerometer_z">0</span><span> m/s<sup>2</sup></span></li>
+      <li>Data Interval: <span id="Accelerometer_i">0</span><span> ms</span></li>
+    </ul>
             <canvas id="canvas" width="500" height="500" ></canvas>
             <script>
             var canvas = document.getElementById("canvas");
@@ -47,7 +53,8 @@ canvas {
             var ctx = document.getElementById('canvas').getContext('2d');  
             ctx.fillStyle="white";
             ctx.fillRect(0, 0, l,h);
-            l = l+1;
+            var temp =document.getElementById('Accelerometer_x').innerHTML;
+            l = l+temp;
             h = h+1;
             ctx.stroke();
             }
@@ -59,13 +66,7 @@ canvas {
     <p style="margin-top:1rem;">Num. of datapoints: <span class="badge badge-warning" id="num-observed-events">0</span></p>
 
 
-<h4>Accelerometer</h4>
-<ul>
-  <li>X-axis: <span id="Accelerometer_x">0</span><span> m/s<sup>2</sup></span></li>
-  <li>Y-axis: <span id="Accelerometer_y">0</span><span> m/s<sup>2</sup></span></li>
-  <li>Z-axis: <span id="Accelerometer_z">0</span><span> m/s<sup>2</sup></span></li>
-  <li>Data Interval: <span id="Accelerometer_i">0</span><span> ms</span></li>
-</ul>
+
 </div>
 </main>
 <script>
