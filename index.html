@@ -45,15 +45,14 @@ canvas {
             var ctx = canvas.getContext("2d");
             var l = 10;
             var h = 10;
-            var start = setInterval(drawClock, 10);
+           // var start = setInterval(drawClock, 10,1);
             function myStopFunction() {
               clearInterval(start);
             }
-            function drawClock() {
+            function drawClock(temp) {
             var ctx = document.getElementById('canvas').getContext('2d');  
             ctx.fillStyle="white";
             ctx.fillRect(0, 0, l,h);
-            var temp =document.getElementById('Accelerometer_x').innerHTML;
             l = l+temp;
             h = h+1;
             ctx.stroke();
@@ -82,6 +81,8 @@ function incrementEventCount(){
 function updateFieldIfNotNull(fieldName, value, precision=10){
   if (value != null)
     document.getElementById(fieldName).innerHTML = value.toFixed(precision);
+  var aaa = value.toFixed(precision);
+  drawClock(aaa);
 }
 
 function handleMotion(event) {
