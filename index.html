@@ -1,58 +1,68 @@
 
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>Demo - The Web's Sixth Sense: A Study of Scripts Accessing Smartphone Sensors</title>
-    <link href="/assets/css/bootstrap.min.css" rel="stylesheet">
-    <title>JavaScript Sensor Access Demo</title>
-    <style>
-      #demo-div {color: lightgrey; border-radius: 0.3rem;}
-      #demo-div span, #demo-div #num-observed-events {color: black;}
-      h1 {margin-top: 0.5rem;}
-      h4 {margin-top: 0.66rem; font-size:1.33rem;}
-      #demo-div li {line-height: 21px;}
-      #demo-div ul {margin-bottom: 0.66rem;}
-    </style>
+
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+  <title>Measure Rectangl</title>
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,700,700i|Raleway:300,400,500,700,800" rel="stylesheet">
+  <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+ <link href="assets/css/style.css" rel="stylesheet">
+ 
 </head>
+<style>
+      #canvas-container {
+   width: 100%;
+   text-align:center;
+}
+
+canvas {
+   display: inline;
+   border: 1px solid black;
+   width: 100%;
+    
+}
+    </style>
 <body>
-<main role="main" class="container">
-
-<h1 align="left">JavaScript Sensor Access Demo with me</h1>
-<p style="margin-top:1rem;">Num. of datapoints: <span class="badge badge-warning" id="num-observed-events">0</span></p>
-
-
-<h4>Accelerometer</h4>
-<ul>
-  <li>X-axis: <span id="Accelerometer_x">0</span><span> m/s<sup>2</sup></span></li>
-  <li>Y-axis: <span id="Accelerometer_y">0</span><span> m/s<sup>2</sup></span></li>
-  <li>Z-axis: <span id="Accelerometer_z">0</span><span> m/s<sup>2</sup></span></li>
-  <li>Data Interval: <span id="Accelerometer_i">0</span><span> ms</span></li>
-</ul>
-</div>
-</main>
-<footer class="footer">
-  <div class="container">
-    <span class="text-muted small">This page is hosted on GitHub Pages, please see GitHub's privacy statement
-    <a href="https://help.github.com/articles/github-privacy-statement/">here</a>.</span>
-  </div>
-</footer>
-<script>
-
-
-
+    
+  <section id="hero">
+    <div class="hero-container">
+      <div data-aos="fade-in">
+        <div class="hero-logo">
+    <h1>Rectangle</h1>
+            
+            <canvas id="canvas" width="500" height="500" ></canvas>
+            <script>
+            var canvas = document.getElementById("canvas");
+            var ctx = canvas.getContext("2d");
+            var l = 10;
+            var h = 50;
+            var start = setInterval(drawClock('Accelerometer_x', event.acceleration.x), 10);
+            function myStopFunction() {
+              clearInterval(start);
+            }
+            function drawClock(fieldName, value, precision=10) {
+            var ctx = document.getElementById('canvas').getContext('2d');  
+            ctx.fillStyle="white";
+            var temp = 0;
+            if (value != null)
+              temp = value.toFixed(precision);
+              l = l + temp;
+            ctx.fillRect(0, 0, l,h);
+            ctx.stroke();
+            }
 function incrementEventCount(){
   let counterElement = document.getElementById("num-observed-events")
   let eventCount = parseInt(counterElement.innerHTML)
   counterElement.innerHTML = eventCount + 1;
 }
-
 function updateFieldIfNotNull(fieldName, value, precision=10){
   if (value != null)
     document.getElementById(fieldName).innerHTML = value.toFixed(precision);
 }
-
 function handleMotion(event) {
   updateFieldIfNotNull('Accelerometer_x', event.acceleration.x);
   updateFieldIfNotNull('Accelerometer_y', event.acceleration.y);
@@ -63,6 +73,31 @@ function handleMotion(event) {
 }
 window.addEventListener("devicemotion", handleMotion);
 
-</script>
+
+
+
+
+
+
+            </script>
+            <div class="actions">
+              <a href="javascript:myStopFunction()" class="btn-get-started">Stop</a>
+             
+            </div>
+            
+        
+        </div>
+      </div>
+    </div>
+  </section>
+
+    
+
+  </main>
+
+  <script src="assets/vendor/typed.js/typed.min.js"></script>
+  <script src="assets/js/main.js"></script>
+
 </body>
+
 </html>
