@@ -44,7 +44,7 @@ canvas {
             <script>
             var canvas = document.getElementById("canvas");
             var ctx = canvas.getContext("2d");
-            var l = 10.0000000000;
+            var l = 200000.0000000000;
             var h = 10.0000000000;
            
             function myStopFunction() {
@@ -73,6 +73,7 @@ function up(fieldName, value, precision=10)
 {
   if(value!=updateFieldIfNotNull)
   document.getElementById(fieldName).innerHTML = value.toFixed(precision)+l;
+  drawClock();
 }
 
 function handleMotion(event) {
