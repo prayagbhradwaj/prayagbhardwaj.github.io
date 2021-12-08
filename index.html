@@ -45,6 +45,7 @@ canvas {
 				<div class="card-body">
 				  <h5 class="card-title" style="color:white;" >Getting Cordinates...</h5>
 				  <p class="card-text"><p id="first_cordinate"></p><p id="second_cordinate"></p>
+				  <p id="first_cordinate_"></p><p id="second_cordinate_"></p>
 				  <a href="javascript:getLocation()" class="btn btn-light" style="margin:20px;">Initial</a>
 				  <a href="javascript:getLocation()" class="btn btn-success" style="margin:20px;">Final</a>
 				</div>	
@@ -58,10 +59,19 @@ canvas {
 					  <h5 class="card-title" style="color:white;">Getting Angles...</h5>
 					  <p class="card-text" id="degree"></p>
 					  <a href="javascript:draw()" class="btn btn-info" style="margin:20px;" id="start_measuring">Start</a>
-					  <a href="javascript:draw()" class="btn btn-danger" style="margin:20px;" id="start_measuring">Stop</a>
+					  <a href="javascript:call_dis()" class="btn btn-danger" style="margin:20px;" id="start_measuring">Stop</a>
 					</div>	
 					</div>
 			  </div>
+			  <div class="card text-center special-card">
+				<div class="card-header" style="color:rgb(246, 250, 7);">
+				  Answer......
+				</div>
+				<div class="card-body">
+				  <h5 class="card-title" style="color:white;" id="final_ans"></h5>
+				  <p class="card-text" id="degree"></p>
+				</div>	
+				</div>
 			 
 			  <canvas id="canvas" width="150" height="150"></canvas>
         </div>
@@ -72,6 +82,8 @@ canvas {
   <script>
 	var temp = document.getElementById("first_cordinate");
 	var temp2 = document.getElementById("second_cordinate");
+	var temp3 = document.getElementById("first_cordinate_");
+	var temp4 = document.getElementById("second_cordinate_");
 	var flag = 0;
 function getLocation() {
   if (navigator.geolocation) {
@@ -84,13 +96,13 @@ function getLocation() {
 
 function showPosition(position) {
 	if(flag%2!=0){
-		temp.innerHTML = "Latitude: " + position.coords.latitude + 
-  "  Longitude: " + position.coords.longitude;
+		temp.innerHTML = "Latitude: " + position.coords.latitude;
+        temp2.innerHTML = "Longitude: " + position.coords.longitude;
 	}
 	else
 	{
-		temp2.innerHTML = "Latitude: " + position.coords.latitude + 
-  " Longitude: " + position.coords.longitude;
+		temp3.innerHTML = "Latitude: " + position.coords.latitude; 
+  		temp4.innerHTML = "Longitude: " + position.coords.longitude;
 
 	}
 }
@@ -119,9 +131,30 @@ function draw(event, canvas)
     context.fill();
   }
 }
-draw();
+function call_dis()
+{
+	var lat1 = document.getElementById("first_cordinate");
+	var lon2 = document.getElementById("second_cordinate");
+	var lat1 = document.getElementById("first_cordinate_");
+	var lon2 = document.getElementById("second_cordinate_");
+	var ans = distance(lat1, lon1, lat2, lon2);
+	var angles = document.getElementById("degree");
+	res = res * getTanFromDegrees(angles);
+	var final = document.getElementById("final_ans");
+	final.innerHTML = res;
+}
+function getTanFromDegrees(degrees) {
+  return Math.tan(degrees * Math.PI / 180);
+}
+function distance(lat1, lon1, lat2, lon2) {
+  var p = 0.017453292519943295;    
+  var c = Math.cos;
+  var a = 0.5 - c((lat2 - lat1) * p)/2 + 
+          c(lat1 * p) * c(lat2 * p) * 
+          (1 - c((lon2 - lon1) * p))/2;
 
-			
+  return 12742 * Math.asin(Math.sqrt(a)); 
+}	
 	</script>
   <script src="assets/vendor/typed.js/typed.min.js"></script>
   <script src="assets/js/main.js"></script>
