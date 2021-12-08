@@ -47,7 +47,7 @@ canvas {
 				  <p class="card-text"><p>Longitude initial:</p><p id="first_cordinate"></p><p>Latitude initial:</p><p id="second_cordinate"></p><br>
 				  <p>Longitude final:</p><p id="first_cordinate_"></p><p>Latitude final:</p><p id="second_cordinate_"></p>
 				  <a href="javascript:getLocation()" class="btn btn-light" style="margin:20px;">Initial</a>
-				  <a href="javascript:getLocation()" class="btn btn-success" style="margin:20px;">Final</a>
+				  <a href="javascript:getLocation_call()" class="btn btn-success" style="margin:20px;">Final</a>
 				</div>	
 				</div>
 				<br>
@@ -88,24 +88,34 @@ canvas {
 function getLocation() {
   if (navigator.geolocation) {
     navigator.geolocation.getCurrentPosition(showPosition);
-	flag = flag + 1;
   } else { 
     temp.innerHTML = "Geolocation is not supported by this browser.";
   }
 }
-
+var stop;
+function getLocation_call()
+{
+	getLocation2();
+	navigator.geolocation.clearWatch(stop);
+}
+function getLocation2() {
+  if (navigator.geolocation) {
+    stop = navigator.geolocation.watchPosition(showPosition2);
+  } else { 
+    temp.innerHTML = "Geolocation is not supported by this browser.";
+  }
+}
 function showPosition(position) {
-	if(flag%2!=0){
 		temp.innerHTML = position.coords.latitude;
         temp2.innerHTML = position.coords.longitude;
 	}
-	else
+function showPosition2(position)
 	{
 		temp3.innerHTML = position.coords.latitude; 
   		temp4.innerHTML = position.coords.longitude;
 
 	}
-}
+
 window.addEventListener('deviceorientation', handleOrientation);
 function handleOrientation(event){				
 			var canvas=document.getElementById("canvas");
