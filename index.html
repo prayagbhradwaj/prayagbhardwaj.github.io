@@ -6,7 +6,7 @@
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-  <title>Measure Rectangl</title>
+  <title>Measurement</title>
   <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,700,700i|Raleway:300,400,500,700,800" rel="stylesheet">
   <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
   <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
@@ -91,16 +91,16 @@ function getLocation() {
   } else { 
     temp.innerHTML = "Geolocation is not supported by this browser.";
   }
+  getLocation2();
 }
 var stop;
 function getLocation_call()
 {
-	getLocation2();
 	navigator.geolocation.clearWatch(stop);
 }
 function getLocation2() {
   if (navigator.geolocation) {
-    stop = navigator.geolocation.watchPosition(showPosition2);
+   stop = navigator.geolocation.watchPosition(showPosition2);
   } else { 
     temp.innerHTML = "Geolocation is not supported by this browser.";
   }
