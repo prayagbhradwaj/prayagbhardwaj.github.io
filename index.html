@@ -143,7 +143,9 @@ function call_dis()
 	var res;
 	res = getTanFromDegrees(angles.innerHTML) * ans;
 	var final = document.getElementById("final_ans");
-	final.innerHTML = res;
+	final.innerHTML = res + " Km";
+	var erase = document.getElementById("degree");
+	erase.innerHTML = " ";
 }
 
 function getTanFromDegrees(degrees) {
