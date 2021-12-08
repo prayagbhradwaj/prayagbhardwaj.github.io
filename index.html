@@ -44,8 +44,8 @@ canvas {
 				</div>
 				<div class="card-body">
 				  <h5 class="card-title" style="color:white;" >Getting Cordinates...</h5>
-				  <p class="card-text"><p id="first_cordinate"></p><p id="second_cordinate"></p>
-				  <p id="first_cordinate_"></p><p id="second_cordinate_"></p>
+				  <p class="card-text"><p>Longitude initial:</p><p id="first_cordinate"></p><p>Latitude initial:</p><p id="second_cordinate"></p><br>
+				  <p>Longitude final:</p><p id="first_cordinate_"></p><p>Latitude final:</p><p id="second_cordinate_"></p>
 				  <a href="javascript:getLocation()" class="btn btn-light" style="margin:20px;">Initial</a>
 				  <a href="javascript:getLocation()" class="btn btn-success" style="margin:20px;">Final</a>
 				</div>	
@@ -69,7 +69,7 @@ canvas {
 				</div>
 				<div class="card-body">
 				  <h5 class="card-title" style="color:white;" id="final_ans"></h5>
-				  <p class="card-text" id="degree"></p>
+				  <p class="card-text" id="final_ans"></p>
 				</div>	
 				</div>
 			 
@@ -131,18 +131,21 @@ function draw(event, canvas)
     context.fill();
   }
 }
+
 function call_dis()
 {
 	var lat1 = document.getElementById("first_cordinate");
-	var lon2 = document.getElementById("second_cordinate");
-	var lat1 = document.getElementById("first_cordinate_");
+	var lon1 = document.getElementById("second_cordinate");
+	var lat2 = document.getElementById("first_cordinate_");
 	var lon2 = document.getElementById("second_cordinate_");
-	var ans = distance(lat1, lon1, lat2, lon2);
+	var ans = distance(lat1.innerHTML, lon1.innerHTML, lat2.innerHTML, lon2.innerHTML);
 	var angles = document.getElementById("degree");
-	res = res * getTanFromDegrees(angles);
+	var res;
+	res = getTanFromDegrees(angles.innerHTML) * ans;
 	var final = document.getElementById("final_ans");
 	final.innerHTML = res;
 }
+
 function getTanFromDegrees(degrees) {
   return Math.tan(degrees * Math.PI / 180);
 }
