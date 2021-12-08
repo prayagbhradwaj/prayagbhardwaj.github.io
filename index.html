@@ -21,100 +21,118 @@
 
 canvas {
    display: inline;
-   border: 1px solid black; 
+   border: 1px solid black;
    width: 100%;
     
 }
+.special-card {
+    background-color: rgb(39, 36, 36);
+  
+}
     </style>
 <body>
-    <section id="hero">
+    
+  <section id="hero">
     <div class="hero-container">
+		<h1>Measure Height</h1>
       <div data-aos="fade-in">
         <div class="hero-logo">
-    <h1>Rectangle_</h1>
-    <h4>Accelerometer</h4>
-    <ul>
-      <li>X-axis: <span id="Accelerometer_x">0</span><span> m/s<sup>2</sup></span></li>
-      <li>Y-axis: <span id="Accelerometer_y">0</span><span> m/s<sup>2</sup></span></li>
-      <li>Z-axis: <span id="Accelerometer_z">0</span><span> m/s<sup>2</sup></span></li>
-      <li>New: <span id="abc">0</span><span> m/s<sup>2</sup></span></li>
-      <li>Data Interval: <span id="Accelerometer_i">0</span><span> ms</span></li>
-    </ul>
-            <canvas id="canvas" width="500" height="500" ></canvas>
-            <script>
-            var canvas = document.getElementById("canvas");
-            var ctx = canvas.getContext("2d");
-            var l = 200000.0000000000;
-            var h = 10.0000000000;
-           
-            function myStopFunction() {
-              clearInterval(start);
-            }
-            function drawClock() {
-            var ctx = document.getElementById('canvas').getContext('2d');  
-            ctx.fillStyle="white";
-            ctx.fillRect(0, 0, l,h);
-            ctx.stroke();
-            }
-            
+			
+			<div class="card text-center special-card">
+				<div class="card-header" style="color:rgb(255, 71, 71);">
+				  Get GeoLocation
+				</div>
+				<div class="card-body">
+				  <h5 class="card-title" style="color:white;" >Getting Cordinates...</h5>
+				  <p class="card-text"><p id="first_cordinate"></p><p id="second_cordinate"></p>
+				  <a href="javascript:getLocation()" class="btn btn-light" style="margin:20px;">Initial</a>
+				  <a href="javascript:getLocation()" class="btn btn-success" style="margin:20px;">Final</a>
+				</div>	
+				</div>
+				<br>
+				<div class="card text-center special-card">
+					<div class="card-header" style="color:rgb(255, 71, 71);">
+					  Get Angle along x-axis
+					</div>
+					<div class="card-body">
+					  <h5 class="card-title" style="color:white;">Getting Cordinates...</h5>
+					  <p class="card-text"><p id="first_cordinate"></p><p id="second_cordinate"></p>
+					  <a href="javascript:getLocation()" class="btn btn-light" style="margin:20px;">Initial</a>
+					  <a href="javascript:getLocation()" class="btn btn-success" style="margin:20px;">Final</a>
+					</div>	
+					</div>
+					<canvas id="canvas_output" style="position:absolute;top:0px;left:0px;"></canvas>
+			  </div>
+			 
 
-function incrementEventCount(){
-  let counterElement = document.getElementById("num-observed-events")
-  let eventCount = parseInt(counterElement.innerHTML)
-  counterElement.innerHTML = eventCount + 1;
-}
-
-function updateFieldIfNotNull(fieldName, value, precision=10){
-  if (value != null){
-    document.getElementById(fieldName).innerHTML = value.toFixed(precision);
-  } 
-}
-function up(fieldName, value, precision=10)
-{
-  if(value!=updateFieldIfNotNull)
-  document.getElementById(fieldName).innerHTML = value.toFixed(precision)+l;
-  drawClock();
-}
-
-function handleMotion(event) {
-  updateFieldIfNotNull('Accelerometer_x', event.acceleration.x);
-  updateFieldIfNotNull('Accelerometer_y', event.acceleration.y);
-  updateFieldIfNotNull('Accelerometer_z', event.acceleration.z);
-  up('abc', event.acceleration.x);
-
-  updateFieldIfNotNull('Accelerometer_i', event.interval, 2);
-  drawClock();
-  incrementEventCount();
-}
-window.addEventListener("devicemotion", handleMotion);
-
-
-            </script>
-            <div class="actions">
-              <a href="javascript:myStopFunction()" class="btn-get-started">Stop</a>
-             
-  
-    <p style="margin-top:1rem;">Num. of datapoints: <span class="badge badge-warning" id="num-observed-events">0</span></p>
-
-
-
-</div>
-</main>
-
-            
-        
         </div>
       </div>
     </div>
   </section>
-
-    
-
   </main>
+  <script>
+	var temp = document.getElementById("first_cordinate");
+	var temp2 = document.getElementById("second_cordinate");
+	var flag = 0;
+function getLocation() {
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(showPosition);
+	flag = flag + 1;
+  } else { 
+    temp.innerHTML = "Geolocation is not supported by this browser.";
+  }
+}
 
+function showPosition(position) {
+	if(flag%2!=0){
+		temp.innerHTML = "Latitude: " + position.coords.latitude + 
+  "  Longitude: " + position.coords.longitude;
+	}
+	else
+	{
+		temp2.innerHTML = "Latitude: " + position.coords.latitude + 
+  " Longitude: " + position.coords.longitude;
+
+	}
+}
+window.addEventListener('deviceorientation', handleOrientation);
+function handleOrientation(event){				
+				var canvas=document.getElementById("canvas_output");
+				betterOutput(event, canvas);
+			}
+			
+			function simpleOutput(event, div){
+				var properties="";
+				for(var prop in event){
+					properties+=prop+": "+event[prop]+"<br>";
+				}
+				div.innerHTML=properties;
+			}
+			
+			function betterOutput(event, canvas){
+				canvas.width=window.innerWidth;
+				canvas.height=window.innerHeight;
+				
+				var context=canvas.getContext("2d");
+				var radius=Math.min(canvas.width,canvas.height)/10;
+				
+				var location0={
+					x:canvas.width/2,
+					y:canvas.height/2
+				}
+				
+				var location={
+					x:location0.x,
+					y:location0.y+event["beta"]*3
+				}
+				
+				context.beginPath();
+				context.arc(location.x,location.y,radius,0,2*Math.PI);
+				context.stroke();
+			}
+			
+	</script>
   <script src="assets/vendor/typed.js/typed.min.js"></script>
   <script src="assets/js/main.js"></script>
-
 </body>
-
 </html>
