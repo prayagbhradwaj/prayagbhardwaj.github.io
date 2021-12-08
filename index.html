@@ -96,13 +96,13 @@ function getLocation() {
 
 function showPosition(position) {
 	if(flag%2!=0){
-		temp.innerHTML = "Latitude: " + position.coords.latitude;
-        temp2.innerHTML = "Longitude: " + position.coords.longitude;
+		temp.innerHTML = position.coords.latitude;
+        temp2.innerHTML = position.coords.longitude;
 	}
 	else
 	{
-		temp3.innerHTML = "Latitude: " + position.coords.latitude; 
-  		temp4.innerHTML = "Longitude: " + position.coords.longitude;
+		temp3.innerHTML = position.coords.latitude; 
+  		temp4.innerHTML = position.coords.longitude;
 
 	}
 }
