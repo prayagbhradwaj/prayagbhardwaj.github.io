@@ -55,16 +55,15 @@ canvas {
 					  Get Angle along x-axis
 					</div>
 					<div class="card-body">
-					  <h5 class="card-title" style="color:white;">Getting Cordinates...</h5>
-					  <p class="card-text"><p id="first_cordinate"></p><p id="second_cordinate"></p>
-					  <a href="javascript:getLocation()" class="btn btn-light" style="margin:20px;">Initial</a>
-					  <a href="javascript:getLocation()" class="btn btn-success" style="margin:20px;">Final</a>
+					  <h5 class="card-title" style="color:white;">Getting Angles...</h5>
+					  <p class="card-text"></p>
+					  <a href="javascript:draw()" class="btn btn-info" style="margin:20px;" id="start_measuring">Start</a>
+					  <a href="javascript:draw()" class="btn btn-danger" style="margin:20px;" id="start_measuring">Stop</a>
 					</div>	
 					</div>
-					<canvas id="canvas_output" style="position:absolute;top:0px;left:0px;"></canvas>
 			  </div>
 			 
-
+			  <canvas id="canvas" width="150" height="150"></canvas>
         </div>
       </div>
     </div>
@@ -97,39 +96,29 @@ function showPosition(position) {
 }
 window.addEventListener('deviceorientation', handleOrientation);
 function handleOrientation(event){				
-				var canvas=document.getElementById("canvas_output");
-				betterOutput(event, canvas);
+			var canvas=document.getElementById("canvas");
+			draw(event, canvas);
 			}
-			
-			function simpleOutput(event, div){
-				var properties="";
-				for(var prop in event){
-					properties+=prop+": "+event[prop]+"<br>";
+function draw(event, canvas) 
+{
+  var canvas = document.getElementById('canvas');
+  if (canvas.getContext)
+  {
+    var context = canvas.getContext('2d');
+	var location0={
+			x:50,
+			y:100 + event["beta"]
 				}
-				div.innerHTML=properties;
-			}
-			
-			function betterOutput(event, canvas){
-				canvas.width=window.innerWidth;
-				canvas.height=window.innerHeight;
-				
-				var context=canvas.getContext("2d");
-				var radius=Math.min(canvas.width,canvas.height)/10;
-				
-				var location0={
-					x:canvas.width/2,
-					y:canvas.height/2
-				}
-				
-				var location={
-					x:location0.x,
-					y:location0.y+event["beta"]*3
-				}
-				
-				context.beginPath();
-				context.arc(location.x,location.y,radius,0,2*Math.PI);
-				context.stroke();
-			}
+    context.beginPath();
+    context.moveTo(location0.x,location0.x);
+    context.lineTo(location0.x,location0.y);
+    context.lineTo(location0.y,location0.y);
+	context.fillStyle = "yellow";
+    context.fill();
+  }
+}
+draw();
+
 			
 	</script>
   <script src="assets/vendor/typed.js/typed.min.js"></script>
